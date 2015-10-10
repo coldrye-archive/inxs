@@ -1,6 +1,7 @@
 # inxs
 
-Dependency injection for node and the browser using Babel.
+Extensible, decorator based dependency injection using Babel. Suitable for
+both node and the browser.
 
 
 ## Limitations
