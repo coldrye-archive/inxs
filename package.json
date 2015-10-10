@@ -1,6 +1,6 @@
 {
   "name": "inxs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dependency injection for Babel (node, browser)",
   "keywords": ["injection", "framework"],
   "license": "Apache-2.0",
