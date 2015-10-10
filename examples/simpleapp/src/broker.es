@@ -32,7 +32,6 @@ class Broker
 
     get logger()
     {
-        winston.debug('inxs accessing logger');
         return winston;
     }
 }

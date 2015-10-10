@@ -7,8 +7,7 @@ examples, e.g. ones that require a browser environment or even Windows.
 
 # Build
 
-make deps
-make dist
+make deps dist
 
 
 # Run
