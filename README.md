@@ -6,7 +6,7 @@ both node and the browser.
 
 ## Limitations
 
-See [inxs-common](https://github.com/coldrye-es/inxs-common#Limitations).
+See [inxs-common](https://github.com/coldrye-es/inxs-common#limitations).
 
 
 ## Contributing
@@ -66,7 +66,7 @@ Simply run **npm install --save inxs** to install.
 
 ## Usage
 
-See the existing examples on how to use this.
+See the existing [examples](https://github.com/coldrye-es/inxs/tree/master/examples/simpleapp) on how to use this.
 
 
 ## Resources
