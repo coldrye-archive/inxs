@@ -4,6 +4,11 @@ Extensible, decorator based dependency injection using Babel. Suitable for
 both node and the browser.
 
 
+## Travis-CI
+
+[![Build Status](https://travis-ci.org/coldrye-es/inxs.svg?branch=master)](https://travis-ci.org/coldrye-es/inxs)
+
+
 ## Limitations
 
 See [inxs-common](https://github.com/coldrye-es/inxs-common#limitations).
