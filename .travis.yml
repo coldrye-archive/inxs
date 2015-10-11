@@ -4,5 +4,7 @@ node_js:
  - "4.0"
  - "0.12"
 install:
-  - make deps-global deps
+  - make deps
+before_script:
+  - make deps-global-travis
 script: make test cover

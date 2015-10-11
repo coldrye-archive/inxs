@@ -28,9 +28,9 @@ watchdog        = $(build_dir)/watchdog
 
 
 .PHONY: build build-cover build-doc build-devdoc build-src build-test \
-		check-cover clean clean-build clean-cover clean-dist \
-        cover deps deps-global dist doc devdoc lint test test-run \
-        watch watch-run
+		check-cover clean clean-build clean-cover clean-dist cover \
+        deps deps-global deps-global-travis dist doc devdoc lint test \
+		test-run watch watch-run
 
 
 # transpiles both src and test
@@ -117,6 +117,24 @@ deps:
 deps-global:
 	@echo "installing global dev dependencies (sudo)..."
 	@sudo npm -g install $(shell node -e " \
+		var pkg = require('./package.json'); \
+		var deps = []; \
+        for (var key in pkg.globalDevDependencies) { \
+			var version = pkg.globalDevDependencies[key]; \
+			if (version.indexOf('/') != -1) { \
+				deps.push(version); \
+			} \
+			else { \
+				deps.push(key + '@' + version); \
+			} \
+		} \
+		console.log(deps.join(' ')); \
+    ")
+
+
+deps-global-travis:
+	@echo "installing global dev dependencies (travis)..."
+	@npm -g install $(shell node -e " \
 		var pkg = require('./package.json'); \
 		var deps = []; \
         for (var key in pkg.globalDevDependencies) { \
