@@ -1,6 +1,6 @@
 # inxs
 
-![logo](https://github.com/coldrye-es/inxs-artwork/blob/master/dist/logo-60x80.png)
+![logo](https://raw.githubusercontent.com/coldrye-es/inxs-artwork/master/dist/logo-60x80.png)
 
 Extensible, decorator based dependency injection framework using Babel. Suitable for
 both node and the browser.
