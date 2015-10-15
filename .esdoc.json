@@ -15,5 +15,18 @@
         "type": "mocha",
         "source": "./test",
         "includes": ["\\.es$"]
-    }
+    },
+    "plugins": [
+        {
+            "name": "esdoc-importpath-plugin",
+            "option": {
+                "replaces": [
+                    {
+                        "from": "^src/", "to": "lib/"
+                    }
+                ],
+                "extension": false
+            }
+        }
+    ]
 }

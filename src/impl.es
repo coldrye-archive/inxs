@@ -27,6 +27,7 @@ import * as util from './util';
  * property injections.
  *
  * @private
+ * @extends AbstractStaticPropertyInjector
  */
 export class StaticPropertyInjectorImpl
 extends common.AbstractStaticPropertyInjector
@@ -40,6 +41,7 @@ extends common.AbstractStaticPropertyInjector
 
 /**
  * @private
+ * @extends AbstractInstancePropertyInjector
  */
 export class InstancePropertyInjectorImpl
 extends common.AbstractInstancePropertyInjector
@@ -53,6 +55,7 @@ extends common.AbstractInstancePropertyInjector
 
 /**
  * @private
+ * @extends AbstractStaticMethodInjector
  */
 export class StaticMethodInjectorImpl
 extends common.AbstractStaticMethodInjector
@@ -66,6 +69,7 @@ extends common.AbstractStaticMethodInjector
 
 /**
  * @private
+ * @extends AbstractInstanceMethodInjector
  */
 export class InstanceMethodInjectorImpl
 extends common.AbstractInstanceMethodInjector

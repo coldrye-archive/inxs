@@ -4,7 +4,7 @@
   "description": "Decorator based dependency injection for Babel (node, browser)",
   "keywords": ["decorator", "dependency injection", "framework"],
   "license": "Apache-2.0",
-  "homepage": "http://inxs.coldrye.eu/",
+  "homepage": "http://inxs.es.coldrye.eu/",
   "bugs": {
     "url": "https://github.com/coldrye-es/inxs/issues"
   },
@@ -29,7 +29,8 @@
     "sprintf-js": "^1.0.3"
   },
   "devDependencies": {
-    "esaver": ">=0.0.3"
+    "esaver": ">=0.0.3",
+    "esdoc-importpath-plugin": "coldrye-collaboration/esdoc-importpath-plugin#gh-1"
   },
   "globalDevDependencies": {
     "babel": "^5.8.21",

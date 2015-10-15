@@ -99,16 +99,20 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @typedef {Object} AbstractBroker
- * @property {function (foo : {string}) : {Object}} getInstance
+ * @typedef {function} AbstractBroker
+ * @property {function (iface : {InterfaceType}) : {Object}} getInstance
  * @property {AbstractLogger} [logger]
  * @property {function : {void}} [validateInterfaces]
  */
 
 
 /**
- * @typedef {Object} AbstractLogger
- * @property {function} log
+ * @typedef {string|function} InterfaceType
+ */
+
+
+/**
+ * @typedef {function} AbstractLogger
  * @property {function} info
  * @property {function} warn
  * @property {function} debug
@@ -126,17 +130,17 @@ export default function inxs(broker, customInjectors)
 
 /**
  * @protected
- * @external {MethodDescriptor} https://es.coldrye.eu/inxs-common/apidoc/FIXME
+ * @external {MethodDescriptor} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-MethodDescriptor
  */
 
 
 /**
  * @protected
- * @external {PropertyDescriptor} https://es.coldrye.eu/inxs-common/apidoc/FIXME
+ * @external {PropertyDescriptor} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-PropertyDescriptor
  */
 
 
 /**
- * @external {AbstractInjector} https://es.coldrye.eu/inxs-common/apidoc/FIXME
+ * @external {AbstractInjector} /projects/inxs-common/doc/dev/class/src/inxs-common.es~AbstractInjector.html
  */
 
