@@ -99,7 +99,7 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @typedef {function} AbstractBroker
+ * @typedef {Object} AbstractBroker
  * @property {function (iface : {InterfaceType}) : {Object}} getInstance
  * @property {AbstractLogger} [logger]
  * @property {function : {void}} [validateInterfaces]
@@ -112,7 +112,7 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @typedef {function} AbstractLogger
+ * @typedef {Object} AbstractLogger
  * @property {function} info
  * @property {function} warn
  * @property {function} debug
