@@ -35,31 +35,31 @@ import * as messages from './messages';
  */
 export function determineLogger(broker)
 {
-	let brokerLogger = broker && broker.logger;
-	let result = brokerLogger ||
+    let brokerLogger = broker && broker.logger;
+    let result = brokerLogger ||
                  /* istanbul ignore next */ console ||
                  /* istanbul ignore next */ {};
 
-	/*
-	 * Add missing required methods.
-	 */
-	/*eslint brace-style: 0*/
+    /*
+     * Add missing required methods.
+     */
+    /*eslint brace-style: 0*/
     /*istanbul ignore next*/
-	const defaultLog = result.info || function dummyLog() {};
+    const defaultLog = result.info || function dummyLog() {};
     /*istanbul ignore next*/
-	const warnLog = result.warn || defaultLog;
+    const warnLog = result.warn || defaultLog;
 
-	if (!brokerLogger)
-	{
-		warnLog(messages.MSG_BROKER_SHOULD_HAVE_LOGGER);
-	}
+    if (!brokerLogger)
+    {
+        warnLog(messages.MSG_BROKER_SHOULD_HAVE_LOGGER);
+    }
 
-	const EXPECTED_LOGGER_METHODS = ['log', 'debug', 'info', 'warn', 'error'];
+    const EXPECTED_LOGGER_METHODS = ['log', 'debug', 'info', 'warn', 'error'];
     for (const key of EXPECTED_LOGGER_METHODS)
-	{
+    {
         if (!result.hasOwnProperty(key))
-		{
-			warnLog(sprintf.sprintf(messages.MSG_MISSING_LOGGER_METHOD, key));
+        {
+            warnLog(sprintf.sprintf(messages.MSG_MISSING_LOGGER_METHOD, key));
 
             // no need to bind here
             result[key] = defaultLog;
@@ -84,14 +84,14 @@ export function determineLogger(broker)
 /*istanbul ignore next*/
 export function log(message, target, attr, ifaces, logMethod)
 {
-	logMethod(
-		message,
-		{
-			target : className(target),
-			attr : attr,
-			interfaces : ifaces
-		}
-	);
+    logMethod(
+        message,
+        {
+            target : className(target),
+            attr : attr,
+            interfaces : ifaces
+        }
+    );
 }
 
 
@@ -108,23 +108,23 @@ export function log(message, target, attr, ifaces, logMethod)
 export function validateBroker(broker, logger)
 {
     if (!broker || typeof broker != 'object')
-	{
+    {
         throw new TypeError(messages.MSG_BROKER_MUST_BE_OBJECT);
     }
 
     if (typeof broker.getInstance != 'function' ||
         broker.getInstance.length != 1)
-	{
+    {
         throw new TypeError(messages.MSG_BROKER_MUST_IMPL_GET_INSTANCE);
     }
 
     if (typeof broker.validateInterfaces != 'function' ||
         broker.validateInterfaces.length != 0)
-	{
-		logger.warn(
-			messages.MSG_BROKER_SHOULD_IMPL_VALIDATE_INTERFACES,
-			{broker : className(broker)}
-		);
+    {
+        logger.warn(
+            messages.MSG_BROKER_SHOULD_IMPL_VALIDATE_INTERFACES,
+            {broker : className(broker)}
+        );
     }
 }
 
@@ -140,43 +140,43 @@ export function validateBroker(broker, logger)
  * @returns {Array<AbstractInjector>} the injectors
  */
 export function determineActualInjectors(
-	defaultInjectors, customInjectors, logger
+    defaultInjectors, customInjectors, logger
 )
 {
-	let result = [];
+    let result = [];
     let injectorsChosen = customInjectors ? customInjectors : defaultInjectors;
 
     /*istanbul ignore else*/
-	if (injectorsChosen)
-	{
-		result = [];
+    if (injectorsChosen)
+    {
+        result = [];
 
-		for (const injector of injectorsChosen)
-		{
-			if (injector instanceof AbstractInjector)
-			{
-				result.push(injector);
-			}
-			else
-			{
+        for (const injector of injectorsChosen)
+        {
+            if (injector instanceof AbstractInjector)
+            {
+                result.push(injector);
+            }
+            else
+            {
                 const injectorName =
-					injector ? className(injector) : 'null|undefined'
-				logger.warn(
-					messages.MSG_INVALID_INJECTOR,
-					{
-						injector : injectorName
-					}
-				);
-			}
-		}
-	}
+                    injector ? className(injector) : 'null|undefined'
+                logger.warn(
+                    messages.MSG_INVALID_INJECTOR,
+                    {
+                        injector : injectorName
+                    }
+                );
+            }
+        }
+    }
 
-	if (result.length == 0)
-	{
-		throw new InjectionError(messages.MSG_MISSING_INJECTORS);
-	}
+    if (result.length == 0)
+    {
+        throw new InjectionError(messages.MSG_MISSING_INJECTORS);
+    }
 
-	return result;
+    return result;
 }
 
 
@@ -192,37 +192,37 @@ export function determineActualInjectors(
 export function validateInterfaces(broker, logger, ifaces)
 {
     /*istanbul ignore else*/
-	if (ifaces.length == 0)
-	{
-		throw new InjectionError(messages.MSG_IFACE_REQUIRED);
-	}
+    if (ifaces.length == 0)
+    {
+        throw new InjectionError(messages.MSG_IFACE_REQUIRED);
+    }
 
     /*istanbul ignore else*/
-	if (broker.validateInterfaces)
-	{
-		logger.debug(
-			messages.MSG_VALIDATING_IFACES,
-			{
-				interfaces : ifaces
-			}
-		);
+    if (broker.validateInterfaces)
+    {
+        logger.debug(
+            messages.MSG_VALIDATING_IFACES,
+            {
+                interfaces : ifaces
+            }
+        );
 
-		try
-		{
-			broker.validateInterfaces(...ifaces);
-		}
-		catch (error)
-		{
-			logger.error(
-				messages.MSG_INVALID_IFACE,
-				{
-					cause : error
-				}
-			);
+        try
+        {
+            broker.validateInterfaces(...ifaces);
+        }
+        catch (error)
+        {
+            logger.error(
+                messages.MSG_INVALID_IFACE,
+                {
+                    cause : error
+                }
+            );
 
-			throw new InjectionError(messages.MSG_INVALID_IFACE);
-		}
-	}
+            throw new InjectionError(messages.MSG_INVALID_IFACE);
+        }
+    }
 }
 
 
@@ -239,39 +239,39 @@ export function validateInterfaces(broker, logger, ifaces)
  * @returns {AbstractInjector} the injector
  */
 export function determineInjector(
-	target, attr, descriptor, logger, injectors
+    target, attr, descriptor, logger, injectors
 )
 {
-	let result;
+    let result;
 
     if (!Array.isArray(injectors) || injectors.length == 0)
     {
-		log(
-			messages.MSG_NO_INJECTORS_AVAIL,
-			target, attr, null, logger.error
-		);
+        log(
+            messages.MSG_NO_INJECTORS_AVAIL,
+            target, attr, null, logger.error
+        );
         throw new InjectionError(messages.MSG_NO_INJECTORS_AVAIL);
     }
 
-	for (const injector of injectors)
-	{
-		if (injector.canInject(target, attr, descriptor))
-		{
-			result = injector;
-			break;
-		}
-	}
+    for (const injector of injectors)
+    {
+        if (injector.canInject(target, attr, descriptor))
+        {
+            result = injector;
+            break;
+        }
+    }
 
-	if (!result)
-	{
-		log(
-			messages.MSG_UNSUPPORTED_INJECTION_METHOD,
-			target, attr, null, logger.error
-		);
+    if (!result)
+    {
+        log(
+            messages.MSG_UNSUPPORTED_INJECTION_METHOD,
+            target, attr, null, logger.error
+        );
 
-		throw new InjectionError(messages.MSG_UNSUPPORTED_INJECTION_METHOD);
-	}
+        throw new InjectionError(messages.MSG_UNSUPPORTED_INJECTION_METHOD);
+    }
 
-	return result;
+    return result;
 }
 

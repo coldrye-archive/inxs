@@ -34,8 +34,8 @@ export class StaticPropertyInjectorImpl
 extends common.AbstractStaticPropertyInjector
 {
     inject(target, attr, descriptor, ifaces, options)
-	{
-		return propertyInjector(target, attr, descriptor, ifaces, options);
+    {
+        return propertyInjector(target, attr, descriptor, ifaces, options);
     }
 }
 
@@ -48,8 +48,8 @@ export class InstancePropertyInjectorImpl
 extends common.AbstractInstancePropertyInjector
 {
     inject(target, attr, descriptor, ifaces, options)
-	{
-		return propertyInjector(target, attr, descriptor, ifaces, options);
+    {
+        return propertyInjector(target, attr, descriptor, ifaces, options);
     }
 }
 
@@ -62,9 +62,9 @@ export class StaticMethodInjectorImpl
 extends common.AbstractStaticMethodInjector
 {
     inject(target, attr, descriptor, ifaces, options)
-	{
-		return methodInjector(target, attr, descriptor, ifaces, options);
-	}
+    {
+        return methodInjector(target, attr, descriptor, ifaces, options);
+    }
 }
 
 
@@ -76,8 +76,8 @@ export class InstanceMethodInjectorImpl
 extends common.AbstractInstanceMethodInjector
 {
     inject(target, attr, descriptor, ifaces, options)
-	{
-		return methodInjector(target, attr, descriptor, ifaces, options);
+    {
+        return methodInjector(target, attr, descriptor, ifaces, options);
     }
 }
 
@@ -95,28 +95,28 @@ extends common.AbstractInstanceMethodInjector
  */
 export function propertyInjector(target, attr, descriptor, ifaces, options)
 {
-	assertions.assertSingleInterfaceOnly(target, attr, descriptor, ifaces);
+    assertions.assertSingleInterfaceOnly(target, attr, descriptor, ifaces);
 
-	const broker = options.broker;
-	const logger = options.logger;
-	let iface = ifaces[0];
+    const broker = options.broker;
+    const logger = options.logger;
+    let iface = ifaces[0];
 
-	util.log(
-		messages.MSG_PREPARING_INJECTION_WRAPPER,
-		target, attr, iface, logger.debug
-	);
+    util.log(
+        messages.MSG_PREPARING_INJECTION_WRAPPER,
+        target, attr, iface, logger.debug
+    );
 
-	descriptor.get = function propertyInjectionWrapper()
-	{
-		util.log(
+    descriptor.get = function propertyInjectionWrapper()
+    {
+        util.log(
             messages.MSG_INJECTING_INSTANCE,
-			target, attr, iface, logger.debug
-		);
+            target, attr, iface, logger.debug
+        );
 
-		return broker.getInstance(iface);
-	};
+        return broker.getInstance(iface);
+    };
 
-	return descriptor;
+    return descriptor;
 }
 
 
@@ -133,40 +133,40 @@ export function propertyInjector(target, attr, descriptor, ifaces, options)
  */
 export function methodInjector(target, attr, descriptor, ifaces, options)
 {
-	assertions.assertFormalParametersMatch(
-		target, attr, descriptor, ifaces
-	);
+    assertions.assertFormalParametersMatch(
+        target, attr, descriptor, ifaces
+    );
 
     const actualIfaces = [...ifaces];
 
-	const broker = options.broker;
-	const logger = options.logger;
-	const method = descriptor.value;
+    const broker = options.broker;
+    const logger = options.logger;
+    const method = descriptor.value;
 
-	util.log(
-		messages.MSG_PREPARING_INJECTION_WRAPPER,
-		target, attr, actualIfaces, logger.debug
-	);
+    util.log(
+        messages.MSG_PREPARING_INJECTION_WRAPPER,
+        target, attr, actualIfaces, logger.debug
+    );
 
-	descriptor.value = function methodInjectionWrapper()
-	{
-		let args = [];
-		for (const iface of actualIfaces)
-		{
-			util.log(
-				messages.MSG_INJECTING_INSTANCE,
-				target, attr, iface, logger.debug
-			);
+    descriptor.value = function methodInjectionWrapper()
+    {
+        let args = [];
+        for (const iface of actualIfaces)
+        {
+            util.log(
+                messages.MSG_INJECTING_INSTANCE,
+                target, attr, iface, logger.debug
+            );
 
-			const instance = broker.getInstance(iface);
-			args.push(instance);
-		}
-		args = args.concat(Array.prototype.slice.call(arguments));
+            const instance = broker.getInstance(iface);
+            args.push(instance);
+        }
+        args = args.concat(Array.prototype.slice.call(arguments));
 
-		return method.apply(this, args);
-	};
+        return method.apply(this, args);
+    };
 
-	return descriptor;
+    return descriptor;
 }
 
 

@@ -45,7 +45,7 @@ export const MSG_BROKER_SHOULD_IMPL_VALIDATE_INTERFACES =
  * @type {string}
  */
 export const MSG_IFACE_REQUIRED =
-	'must provide least one interface to be injected';
+    'must provide least one interface to be injected';
 
 
 /**
@@ -89,7 +89,7 @@ export const MSG_BROKER_SHOULD_HAVE_LOGGER =
  * @type {string}
  */
 export const MSG_MISSING_LOGGER_METHOD =
-	'logger is missing method "%s", adding default';
+    'logger is missing method "%s", adding default';
 
 
 /**
@@ -97,7 +97,7 @@ export const MSG_MISSING_LOGGER_METHOD =
  * @type {string}
  */
 export const MSG_INVALID_INJECTOR =
-	'injector must be instance of AbstractInjector';
+    'injector must be instance of AbstractInjector';
 
 
 /**

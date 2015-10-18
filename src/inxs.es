@@ -59,41 +59,41 @@ import * as util from './util';
 export default function inxs(broker, customInjectors)
 {
     const logger = util.determineLogger(broker);
-	util.validateBroker(broker, logger);
-	const injectors = util.determineActualInjectors(
-		defaultInjectors, customInjectors, logger
-	);
+    util.validateBroker(broker, logger);
+    const injectors = util.determineActualInjectors(
+        defaultInjectors, customInjectors, logger
+    );
 
     return function injectionDecoratorWrapper(...ifaces)
-	{
-		util.validateInterfaces(broker, logger, ifaces);
+    {
+        util.validateInterfaces(broker, logger, ifaces);
 
         return function injectionDecorator(...args)
-		{
+        {
             let target = args[0];
 
             // we do not support constructor injection
             if (args.length == 1)
-			{
+            {
                 util.log(
-					messages.MSG_USE_PROPERTY_INJECTION_INSTEAD,
-					target, null, ifaces, logger.error
-				);
+                    messages.MSG_USE_PROPERTY_INJECTION_INSTEAD,
+                    target, null, ifaces, logger.error
+                );
 
                 throw new InjectionError(
-					messages.MSG_USE_PROPERTY_INJECTION_INSTEAD
-				);
+                    messages.MSG_USE_PROPERTY_INJECTION_INSTEAD
+                );
             }
 
-			const attr = args[1];
-			const descriptor = args[2];
-			const injector = util.determineInjector(
-				target, attr, descriptor, logger, injectors
-			);
+            const attr = args[1];
+            const descriptor = args[2];
+            const injector = util.determineInjector(
+                target, attr, descriptor, logger, injectors
+            );
 
             return injector.inject(
-				target, attr, descriptor, ifaces, {broker:broker, logger:logger}
-			);
+                target, attr, descriptor, ifaces, {broker:broker, logger:logger}
+            );
         }
     }
 }
