@@ -30,8 +30,8 @@ import * as messages from './messages';
  * available.
  *
  * @protected
- * @param {Broker} broker - the broker
- * @returns {Logger} the effective logger
+ * @param {AbstractBroker} broker - the broker
+ * @returns {AbstractLogger} the effective logger
  */
 export function determineLogger(broker)
 {
@@ -100,8 +100,8 @@ export function log(message, target, attr, ifaces, logMethod)
  * missing features.
  *
  * @protected
- * @param {Broker} broker - the broker
- * @param {Logger} logger - the logger
+ * @param {AbstractBroker} broker - the broker
+ * @param {AbstractLogger} logger - the logger
  * @throws {TypeError} in case the broker is missing required functionality
  * @returns {void}
  */
@@ -135,7 +135,7 @@ export function validateBroker(broker, logger)
  * @protected
  * @param {Array<AbstractInjector>} defaultInjectors - the default injector suite
  * @param {Array<AbstractInjector>|null} customInjectors - the custom injectors
- * @param {Logger} logger - the logger
+ * @param {AbstractLogger} logger - the logger
  * @throws {InjectionError} in case that there are no valid custom injectors
  * @returns {Array<AbstractInjector>} the injectors
  */
@@ -184,8 +184,8 @@ export function determineActualInjectors(
  * Validate the interfaces by delegating to the broker.
  *
  * @protected
- * @param {Broker} broker - the broker
- * @param {Logger} logger - the logger
+ * @param {AbstractBroker} broker - the broker
+ * @param {AbstractLogger} logger - the logger
  * @param {Array<function,string>} ifaces - the interfaces
  * @returns {void}
  */
@@ -233,7 +233,7 @@ export function validateInterfaces(broker, logger, ifaces)
  * @param {function|Object} target - the injection target
  * @param {string} attr - the injected attribute
  * @param {PropertyDescriptor|MethodDescriptor} descriptor - the descriptor
- * @param {Logger} logger - the logger
+ * @param {AbstractLogger} logger - the logger
  * @param {Array<AbstractInjector>} injectors - the injectors
  * @throws {InjectionError}
  * @returns {AbstractInjector} the injector

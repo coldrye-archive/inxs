@@ -35,7 +35,7 @@ import * as util from './util';
  * Optionally, the broker might implement the following methods and properties
  *
  * - validateInterfaces(...ifaces : {String|Function}) : {Boolean}, and
- * - get logger() : {Object<Logger>}.
+ * - get logger() : {Object<AbstractLogger>}.
  *
  * The broker is responsible for both resolving the interfaces passed to it and
  * providing suitable instances for these interfaces.
