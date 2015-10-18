@@ -21,11 +21,9 @@
             "name": "esdoc-importpath-plugin",
             "option": {
                 "replaces": [
-                    {
-                        "from": "^src/", "to": "lib/"
-                    }
-                ],
-                "extension": false
+                    {"from": "^src/", "to": "lib/"},
+                    {"from": "\\.es$", "to": ""}
+                ]
             }
         }
     ]

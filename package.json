@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "esaver": ">=0.0.3",
-    "esdoc-importpath-plugin": "coldrye-collaboration/esdoc-importpath-plugin#gh-1"
+    "esdoc-importpath-plugin": ">=0.0.1"
   },
   "globalDevDependencies": {
     "babel": "^5.8.21",
