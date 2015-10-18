@@ -1,3 +1,4 @@
+// vim: expandtab:ts=4:sw=4
 /*
  * Copyright 2015 Carsten Klein
  *
