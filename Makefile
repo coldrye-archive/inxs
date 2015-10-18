@@ -30,7 +30,7 @@ watchdog        = $(build_dir)/watchdog
 .PHONY: build build-cover build-doc build-devdoc build-src build-test \
 		check-cover clean clean-build clean-cover clean-dist cover \
         deps deps-global deps-global-travis dist doc devdoc lint test \
-		test-run watch watch-run
+		test-run watch watch-run publish
 
 
 # transpiles both src and test
@@ -168,6 +168,10 @@ devdoc: clean-devdoc build-devdoc
 lint: $(src_dir)/* $(test_dir)/*
 	@echo "linting..."
 	@eslint $?
+
+
+publish: clean dist
+	@npm publish
 
 
 # tests everything
