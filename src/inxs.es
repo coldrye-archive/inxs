@@ -160,7 +160,6 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @protected
  * @external {InterfaceType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-InterfaceType.html
  */
 
