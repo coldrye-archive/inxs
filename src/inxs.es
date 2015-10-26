@@ -54,7 +54,7 @@ import * as util from './util';
  * @param {Object<AbstractBroker>} broker - the broker
  * @param {Array<AbstractInjector>} [customInjectors] - custom suite of injectors
  * to be used instead of the default suite
- * @returns {function} the injection decorator
+ * @returns {InjectionDecoratorType} - the injection decorator
  */
 export default function inxs(broker, customInjectors)
 {
@@ -108,7 +108,7 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @typedef {string|function} InterfaceType
+ * @typedef {function(iface: InterfaceType): InjectionDecoratorImplType} InjectionDecoratorType
  */
 
 
@@ -131,6 +131,24 @@ export default function inxs(broker, customInjectors)
 
 /**
  * @protected
+ * @typedef {function(target: TargetType, attr: string, descriptor: DescriptorType): DescriptorType} InjectionDecoratorImplType
+ */
+
+
+/**
+ * @protected
+ * @external {AbstractInjector} /projects/inxs-common/doc/dev/class/src/inxs-common.es~AbstractInjector.html
+ */
+
+
+/**
+ * @protected
+ * @external {DescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-DescriptorType.html
+ */
+
+
+/**
+ * @protected
  * @external {MethodDescriptor} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-MethodDescriptor
  */
 
@@ -142,6 +160,13 @@ export default function inxs(broker, customInjectors)
 
 
 /**
- * @external {AbstractInjector} /projects/inxs-common/doc/dev/class/src/inxs-common.es~AbstractInjector.html
+ * @protected
+ * @external {InterfaceType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-InterfaceType.html
+ */
+
+
+/**
+ * @protected
+ * @external {TargetType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-TargetType.html
  */
 
