@@ -107,11 +107,11 @@ extends common.AbstractInstanceMethodInjector
  * @private
  * @param {TargetType} target - the target object or function
  * @param {string} attr - the target's attribute
- * @param {PropertyDescriptor} descriptor - the descriptor
+ * @param {PropertyDescriptorType} descriptor - the descriptor
  * @param {Array<InterfaceType>} ifaces - the interfaces to inject
  * @param {InjectorOptions} options - logger and broker
  * @throws {InjectionError}
- * @returns {PropertyDescriptor} - the property descriptor
+ * @returns {PropertyDescriptorType} - the property descriptor
  */
 export function propertyInjector(target, attr, descriptor, ifaces, options)
 {
@@ -144,11 +144,11 @@ export function propertyInjector(target, attr, descriptor, ifaces, options)
  * @private
  * @param {TargetType} target - the target object or function
  * @param {string} attr - the target's attribute
- * @param {MethodDescriptor} descriptor - the descriptor
+ * @param {MethodDescriptorType} descriptor - the descriptor
  * @param {Array<InterfaceType>} ifaces - the interfaces to inject
  * @param {InjectorOptions} options - logger and broker
  * @throws {InjectionError}
- * @returns {MethodDescriptor} the property descriptor
+ * @returns {MethodDescriptorType} the property descriptor
  */
 export function methodInjector(target, attr, descriptor, ifaces, options)
 {

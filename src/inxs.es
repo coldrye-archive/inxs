@@ -149,13 +149,13 @@ export default function inxs(broker, customInjectors)
 
 /**
  * @protected
- * @external {MethodDescriptor} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-MethodDescriptor
+ * @external {MethodDescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-MethodDescriptorType
  */
 
 
 /**
  * @protected
- * @external {PropertyDescriptor} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-PropertyDescriptor
+ * @external {PropertyDescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-PropertyDescriptorType
  */
 
 

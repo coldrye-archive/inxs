@@ -75,10 +75,11 @@ export function determineLogger(broker)
  *
  * @protected
  * @param {string} message - the log messsage
- * @param {function|Object} target - the target object or function
+ * @param {TargetType} target - the target object or function
  * @param {string} attr - the target's attribute
- * @param {Array<string,function>} ifaces - the interfaces to inject
- * @param {function} logMethod - the log method (info, debug, error or warn)
+ * @param {Array<InterfaceType>} ifaces - the interfaces to inject
+ * @param {function(message: string, data: *)} logMethod - the log method
+ * (info, debug, error or warn)
  * @returns {void}
  */
 /*istanbul ignore next*/
@@ -134,7 +135,7 @@ export function validateBroker(broker, logger)
  *
  * @protected
  * @param {Array<AbstractInjector>} defaultInjectors - the default injector suite
- * @param {Array<AbstractInjector>|null} customInjectors - the custom injectors
+ * @param {Array<AbstractInjector>} customInjectors? - the custom injectors
  * @param {AbstractLogger} logger - the logger
  * @throws {InjectionError} in case that there are no valid custom injectors
  * @returns {Array<AbstractInjector>} the injectors
@@ -186,7 +187,7 @@ export function determineActualInjectors(
  * @protected
  * @param {AbstractBroker} broker - the broker
  * @param {AbstractLogger} logger - the logger
- * @param {Array<function,string>} ifaces - the interfaces
+ * @param {Array<InterfaceType>} ifaces - the interfaces
  * @returns {void}
  */
 export function validateInterfaces(broker, logger, ifaces)
@@ -230,9 +231,9 @@ export function validateInterfaces(broker, logger, ifaces)
  * Determines the injector capable of handling the injection.
  *
  * @protected
- * @param {function|Object} target - the injection target
+ * @param {TargetType} target - the injection target
  * @param {string} attr - the injected attribute
- * @param {PropertyDescriptor|MethodDescriptor} descriptor - the descriptor
+ * @param {DescriptorType} descriptor - the descriptor
  * @param {AbstractLogger} logger - the logger
  * @param {Array<AbstractInjector>} injectors - the injectors
  * @throws {InjectionError}
