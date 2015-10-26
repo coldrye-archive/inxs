@@ -101,9 +101,9 @@ export default function inxs(broker, customInjectors)
 
 /**
  * @typedef {Object} AbstractBroker
- * @property {function (iface : {InterfaceType}) : {Object}} getInstance
+ * @property {function(iface: InterfaceType): Object} getInstance
  * @property {AbstractLogger} [logger]
- * @property {function : {void}} [validateInterfaces]
+ * @property {function(ifaces: Array<InterfaceType>): boolean} [validateInterfaces]
  */
 
 
@@ -114,10 +114,10 @@ export default function inxs(broker, customInjectors)
 
 /**
  * @typedef {Object} AbstractLogger
- * @property {function} info
- * @property {function} warn
- * @property {function} debug
- * @property {function} error
+ * @property {function(message: string, data: *): void} info
+ * @property {function(message: string, data: *): void} warn
+ * @property {function(message: string, data: *): void} debug
+ * @property {function(message: string, data: *): void} error
  */
 
 
