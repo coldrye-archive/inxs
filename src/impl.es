@@ -33,6 +33,9 @@ import * as util from './util';
 export class StaticPropertyInjectorImpl
 extends common.AbstractStaticPropertyInjector
 {
+    /**
+     * @override
+     */
     inject(target, attr, descriptor, ifaces, options)
     {
         return propertyInjector(target, attr, descriptor, ifaces, options);
@@ -41,12 +44,18 @@ extends common.AbstractStaticPropertyInjector
 
 
 /**
+ * The class StaticPropertyInjectorImpl is responsible for handling instance
+ * property injections.
+ *
  * @private
  * @extends AbstractInstancePropertyInjector
  */
 export class InstancePropertyInjectorImpl
 extends common.AbstractInstancePropertyInjector
 {
+    /**
+     * @override
+     */
     inject(target, attr, descriptor, ifaces, options)
     {
         return propertyInjector(target, attr, descriptor, ifaces, options);
@@ -55,12 +64,18 @@ extends common.AbstractInstancePropertyInjector
 
 
 /**
+ * The class StaticMethodInjectorImpl is responsible for handling static
+ * method parameter injections.
+ *
  * @private
  * @extends AbstractStaticMethodInjector
  */
 export class StaticMethodInjectorImpl
 extends common.AbstractStaticMethodInjector
 {
+    /**
+     * @override
+     */
     inject(target, attr, descriptor, ifaces, options)
     {
         return methodInjector(target, attr, descriptor, ifaces, options);
@@ -69,12 +84,18 @@ extends common.AbstractStaticMethodInjector
 
 
 /**
+ * The class InstanceMethodInjectorImpl is responsible for handling instance
+ * method parameter injections.
+ *
  * @private
  * @extends AbstractInstanceMethodInjector
  */
 export class InstanceMethodInjectorImpl
 extends common.AbstractInstanceMethodInjector
 {
+    /**
+     * @override
+     */
     inject(target, attr, descriptor, ifaces, options)
     {
         return methodInjector(target, attr, descriptor, ifaces, options);
@@ -84,14 +105,13 @@ extends common.AbstractInstanceMethodInjector
 
 /**
  * @private
- * @param {function|Object} target - the target object or function
+ * @param {TargetType} target - the target object or function
  * @param {string} attr - the target's attribute
- * @param {PropertyDescriptor|MethodDescriptor} descriptor -
- * the descriptor
- * @param {Array<string,function>} ifaces - the interfaces to inject
+ * @param {PropertyDescriptor} descriptor - the descriptor
+ * @param {Array<InterfaceType>} ifaces - the interfaces to inject
  * @param {InjectorOptions} options - logger and broker
  * @throws {InjectionError}
- * @returns {PropertyDescriptor} the property descriptor
+ * @returns {PropertyDescriptor} - the property descriptor
  */
 export function propertyInjector(target, attr, descriptor, ifaces, options)
 {
@@ -122,14 +142,13 @@ export function propertyInjector(target, attr, descriptor, ifaces, options)
 
 /**
  * @private
- * @param {function|Object} target - the target object or function
+ * @param {TargetType} target - the target object or function
  * @param {string} attr - the target's attribute
- * @param {PropertyDescriptor|MethodDescriptor} descriptor -
- * the descriptor
- * @param {Array<string,function>} ifaces - the interfaces to inject
+ * @param {MethodDescriptor} descriptor - the descriptor
+ * @param {Array<InterfaceType>} ifaces - the interfaces to inject
  * @param {InjectorOptions} options - logger and broker
  * @throws {InjectionError}
- * @returns {PropertyDescriptor} the property descriptor
+ * @returns {MethodDescriptor} the property descriptor
  */
 export function methodInjector(target, attr, descriptor, ifaces, options)
 {
