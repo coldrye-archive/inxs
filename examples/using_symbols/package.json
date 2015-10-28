@@ -1,0 +1,22 @@
+{
+  "name": "simpleapp",
+  "dependencies": {
+    "babel-runtime": "^5.8.20",
+    "inxs": "file:../../",
+    "winston": "^1.1.0"
+  },
+  "main": "lib/main.js",
+  "babel": {
+    "externalHelpers": true,
+    "optional": [
+      "runtime",
+      "es7.decorators"
+    ],
+    "env": {
+      "DIST": {
+        "compact": false,
+        "comments": true
+      }
+    }
+  }
+}
