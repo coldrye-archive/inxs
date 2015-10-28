@@ -2,7 +2,6 @@
 # How to contribute
 
 
-
 ## Getting Started
 
 
@@ -27,19 +26,39 @@
 
 ## Making Changes
 
-* Clone your fork and add a second remote pointing to the original repository, e.g. `git remote add base https://github.com/...`
-* Fetch existing branches and tags from the `base`
-* Keep your fork up to date by constantly fetching/pulling from `base`, rebasing and pushing to your repository
-* Checkout the development branch on which you will base your changes on, e.g. `git checkout dev-next`
-* Create a different branch for each of your pull requests, never make changes to master or the development branch directly
-* Name the branch so that you can determine easily what it stands for, e.g. `git checkout -b gh-1234` for the issue that you are about to fix
+* Clone your fork and add a second remote pointing to the original repository
+    * `git remote add base https://github.com/...`
+* Fetch existing a/o new branches and tags from the `base`
+* Keep your fork up to date
+    * By constantly fetching/pulling from `base`
+    * Rebasing
+    * Pushing to your repository
+* Checkout the development branch on which you will base your changes on
+    * `git checkout dev-next`
+    * `dev-next` will be the default development branch
+    * Additional development branches might be introduced in the future
+* Create a different branch for each of your pull requests, never make changes to master or the development branches directly
+* Name the branch so that you can determine easily for what it stands for
+    * `git checkout -b gh-1234` for the issue that you are about to fix
 * Keep your changes and commits atomic
     * Too many unrelated changes in a single commit distributed across the whole code base make it difficult to understand your intentions
-* Use short yet expressive commit messages
-* Always address the issue being fixed in your commit messages, e.g. `fixes #1234`
-* Always keep your branch up to date by rebasing it, e.g. `git rebase base dev-next`
+    * Use `commit --amend` only where necessary
+    * Always address the issue being fixed/addressed in your commit messages
+        * `fixes #1234` would be nice
+    * Use short yet expressive commit messages
+        * `fixes #1234:improve upon documentation` whenever you work on doc comments
+        * `fixes #1234:missed typo` or just `commit --amend` whenever possible
+        * `fixes #1234:initial proposal`
+        * `fixes #1234:introduce class FooBar`
+        * `fixes #1234:refactoring`
+* Always keep your branch up to date by rebasing it
+    * `git rebase base dev-next`
     * Resolve all conflicts that you get but make sure that all tests still work
-* Think twice before adding additional global, dev or runtime dependencies, perhaps ask first?
+* Think twice before adding additional global, development or runtime dependencies
+    * Ask first?
+    * Global dependencies: see `package.json#globalDependencies`, not an npm standard
+    * Development and runtime dependencies: npm standard package.json keys
+    * Most plugins need to be made either development or runtime dependencies instead of global dependencies
 
 
 ### Submitting Pull Requests
@@ -69,4 +88,5 @@
     * Use `make lint` to check
 * Have a look at Travis CI
     * Whenever you push your changes, Travis CI will run the existing tests and lint your code
+* Contributors whose PRs have been accepted will of course be named in the contributors list
 
