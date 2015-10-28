@@ -80,5 +80,6 @@ See the existing [examples](https://github.com/coldrye-es/inxs/tree/master/examp
 
  - (1) [Github Site](https://github.com/coldrye-es/inxs)
  - (2) [Keith Cirkel on "Why we should stop using Grunt & Gulp"](http://blog.keithcirkel.co.uk/why-we-should-stop-using-grunt)
- - (3) [inxs-common](https://github.com/coldrye-es/inxs-common)
+ - (3) [Project Site](http://inxs.es.coldrye.eu)
+ - (4) [inxs-common](https://github.com/coldrye-es/inxs-common)
 
