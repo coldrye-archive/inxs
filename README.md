@@ -73,7 +73,7 @@ Simply run **npm install --save inxs** to install.
 
 ## Usage
 
-See the existing [examples](https://github.com/coldrye-es/inxs/tree/master/examples/simpleapp) on how to use this.
+See the existing [examples](https://github.com/coldrye-es/inxs/tree/master/examples/) on how to use this.
 
 
 ## Resources
