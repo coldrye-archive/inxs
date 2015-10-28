@@ -28,7 +28,7 @@ export const MSG_BROKER_MUST_BE_OBJECT = 'broker must be an object';
  * @type {string}
  */
 export const MSG_BROKER_MUST_IMPL_GET_INSTANCE =
-    'broker must implement getInstance(iface : {string|function}) : {Object}';
+    'broker must implement getInstance(iface : InterfaceType) : Object';
 
 
 /**
@@ -36,8 +36,8 @@ export const MSG_BROKER_MUST_IMPL_GET_INSTANCE =
  * @type {string}
  */
 export const MSG_BROKER_SHOULD_IMPL_VALIDATE_INTERFACES =
-    'broker should implement validateInterfaces(...ifaces : ' +
-    '{Array<string|function>)} : {boolean}';
+    'broker should implement validateInterfaces(ifaces : ' +
+    'Array<InterfaceType>) : boolean';
 
 
 /**
