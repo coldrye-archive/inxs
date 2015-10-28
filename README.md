@@ -22,6 +22,8 @@ While I believe that the feature set of the software can be considered final,
 you are very welcome to propose changes and report bugs, or even provide pull
 requests on [github](https://github.com/coldrye-es/inxs).
 
+See the [contributing guidelines](https://github.com/coldrye-es/inxs/blob/master/CONTRIBUTING.md) for more information.
+
 
 ### Contributors
 
