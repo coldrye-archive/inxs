@@ -52,7 +52,7 @@
         * `fixes #1234:introduce class FooBar`
         * `fixes #1234:refactoring`
 * Always keep your branch up to date by rebasing it
-    * `git rebase base dev-next`
+    * `git rebase base/dev-next`
     * Resolve all conflicts that you get but make sure that all tests still work
 * Think twice before adding additional global, development or runtime dependencies
     * Ask first?
