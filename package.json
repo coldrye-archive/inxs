@@ -44,6 +44,9 @@
   "files": [
     "lib"
   ],
+  "scripts": {
+    "prepublish": "echo 'use *make publish* or *npm update* instead' && exit 1"
+  },
   "babel": {
     "externalHelpers": true,
     "optional": [
