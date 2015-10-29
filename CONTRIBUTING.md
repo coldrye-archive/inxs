@@ -56,7 +56,7 @@
     * Resolve all conflicts that you get but make sure that all tests still work
 * Think twice before adding additional global, development or runtime dependencies
     * Ask first?
-    * Global dependencies: see `package.json#globalDependencies`, not an npm standard
+    * Global dependencies: see `package.json#globalDevDependencies`, not an npm standard
     * Development and runtime dependencies: npm standard package.json keys
     * Most plugins need to be made either development or runtime dependencies instead of global dependencies
 
