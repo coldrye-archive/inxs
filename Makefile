@@ -30,7 +30,7 @@ watchdog        = $(build_dir)/watchdog
 .PHONY: build build-cover build-doc build-devdoc build-src build-test \
 		check-cover clean clean-build clean-cover clean-dist cover \
         deps deps-global deps-global-travis dist doc devdoc lint test \
-		test-run watch watch-run publish
+		test-run watch watch-run publish check-master
 
 
 # transpiles both src and test
@@ -170,8 +170,13 @@ lint: $(src_dir)/* $(test_dir)/*
 	@eslint $?
 
 
-publish: clean dist
-	@npm publish
+publish: check-master clean dist
+	@MASTER=1 npm publish
+
+
+check-master:
+	@echo "must be on master branch"
+	@git branch | grep "^[*] master"
 
 
 # tests everything

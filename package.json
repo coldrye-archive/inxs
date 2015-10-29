@@ -45,7 +45,7 @@
     "lib"
   ],
   "scripts": {
-    "prepublish": "echo 'use *make publish* or *npm update* instead' && exit 1"
+    "prepublish": "test ${MASTER} -eq 1 || (echo 'use *make publish* or *npm update* instead' && exit 1)"
   },
   "babel": {
     "externalHelpers": true,
