@@ -16,7 +16,7 @@
  */
 
 
-import InjectionError from 'inxs-common/lib/exceptions';
+import InjectionError from 'inxs-common/exceptions';
 
 import {injectors as defaultInjectors} from './impl';
 import * as messages from './messages';
@@ -70,6 +70,7 @@ export default function inxs(broker, customInjectors)
 
         return function injectionDecorator(...args)
         {
+            /* istanbul ignore next */
             let target = args[0];
 
             // we do not support constructor injection
@@ -85,7 +86,9 @@ export default function inxs(broker, customInjectors)
                 );
             }
 
+            /* istanbul ignore next */
             const attr = args[1];
+            /* istanbul ignore next */
             const descriptor = args[2];
             const injector = util.determineInjector(
                 target, attr, descriptor, logger, injectors

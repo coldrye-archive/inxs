@@ -17,7 +17,7 @@
 
 
 import * as common from 'inxs-common';
-import * as assertions from 'inxs-common/lib/assertions';
+import * as assertions from 'inxs-common/assertions';
 
 import * as messages from './messages';
 import * as util from './util';

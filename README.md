@@ -5,15 +5,37 @@
 Extensible, decorator based dependency injection framework using Babel. Suitable for
 both node and the browser.
 
+``IMPORTANT NOTE``
+
+Since version 0.1.0 this is no longer compatible with Babel 5.x. 
+
+
+## Limitations
+
+See [inxs-common](https://github.com/coldrye-es/inxs-common#limitations).
+
+
+## IMPORTANT NOTE
+
+Since version v0.1.0 this is no longer compatible with Babel 5.x. 
+
+ES decorators are about to change. Currently, we must use the legacy ES2015 decorators.
+Support for these decorators is provided by the interim package published by
+[loganfsmyth](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy).
+
+Please note that during build we have to make sure that ``babel-traverse`` is up to date, too.
+See https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy/issues/8 for more information.
+
 
 ## Travis-CI
 
 [![Build Status](https://travis-ci.org/coldrye-es/inxs.svg?branch=master)](https://travis-ci.org/coldrye-es/inxs)
 
 
-## Limitations
+## Project Site
 
-See [inxs-common](https://github.com/coldrye-es/inxs-common#limitations).
+The project site, see (3) under resources below, provides more insight into the project,
+including test coverage reports and API documentation.
 
 
 ## Contributing

@@ -1,22 +1,17 @@
 {
   "name": "simpleapp",
   "dependencies": {
-    "babel-runtime": "^5.8.20",
-    "inxs": "file:../../",
+    "babel-runtime": ">=6.3.x",
+    "inxs": ">=0.1.0",
     "winston": "^1.1.0"
   },
-  "main": "lib/main.js",
-  "babel": {
-    "externalHelpers": true,
-    "optional": [
-      "runtime",
-      "es7.decorators"
-    ],
-    "env": {
-      "DIST": {
-        "compact": false,
-        "comments": true
-      }
-    }
-  }
+  "devDependencies": {
+    "babel-plugin-external-helpers-2": ">=6.3.x",
+    "babel-plugin-transform-decorators-legacy": ">=1.3.2",
+    "babel-plugin-transform-runtime": ">=6.3.x",
+    "babel-plugin-undeclared-variables-check": ">=6.3.x",
+    "babel-preset-es2015": ">=6.3.x",
+    "babel-preset-stage-0": ">=6.3.x"
+  },
+  "main": "lib/main.js"
 }

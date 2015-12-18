@@ -19,8 +19,8 @@
 import * as sprintf from 'sprintf-js';
 
 import {AbstractInjector} from 'inxs-common';
-import InjectionError from 'inxs-common/lib/exceptions';
-import {className} from 'inxs-common/lib/util';
+import InjectionError from 'inxs-common/exceptions';
+import {className} from 'inxs-common/util';
 
 import * as messages from './messages';
 
@@ -36,17 +36,19 @@ import * as messages from './messages';
 export function determineLogger(broker)
 {
     let brokerLogger = broker && broker.logger;
-    let result = brokerLogger ||
-                 /* istanbul ignore next */ console ||
-                 /* istanbul ignore next */ {};
+    /* istanbul ignore next */
+    let result = brokerLogger || console || {};
 
     /*
      * Add missing required methods.
      */
-    /*eslint brace-style: 0*/
-    /*istanbul ignore next*/
-    const defaultLog = result.info || function dummyLog() {};
-    /*istanbul ignore next*/
+    /* istanbul ignore next */
+    function dummyLog()
+    {}
+
+    /* istanbul ignore next */
+    const defaultLog = result.info || dummyLog;
+    /* istanbul ignore next */
     const warnLog = result.warn || defaultLog;
 
     if (!brokerLogger)
@@ -54,7 +56,7 @@ export function determineLogger(broker)
         warnLog(messages.MSG_BROKER_SHOULD_HAVE_LOGGER);
     }
 
-    const EXPECTED_LOGGER_METHODS = ['log', 'debug', 'info', 'warn', 'error'];
+    const EXPECTED_LOGGER_METHODS = ['debug', 'info', 'warn', 'error'];
     for (const key of EXPECTED_LOGGER_METHODS)
     {
         if (!result.hasOwnProperty(key))
@@ -82,7 +84,6 @@ export function determineLogger(broker)
  * (info, debug, error or warn)
  * @returns {void}
  */
-/*istanbul ignore next*/
 export function log(message, target, attr, ifaces, logMethod)
 {
     logMethod(
@@ -108,7 +109,7 @@ export function log(message, target, attr, ifaces, logMethod)
  */
 export function validateBroker(broker, logger)
 {
-    if (!broker || typeof broker != 'object')
+    if (typeof broker != 'object')
     {
         throw new TypeError(messages.MSG_BROKER_MUST_BE_OBJECT);
     }

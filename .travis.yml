@@ -7,4 +7,4 @@ install:
   - make deps
 before_script:
   - make deps-global-travis
-script: make test cover
+script: make cover

@@ -18,7 +18,7 @@
 
 import * as assert from 'esaver';
 
-import InjectionError from 'inxs-common/lib/exceptions';
+import InjectionError from 'inxs-common/exceptions';
 
 import inxs from '../src/inxs';
 
