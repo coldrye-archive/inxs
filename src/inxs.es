@@ -61,7 +61,7 @@ export default function inxs(broker, customInjectors)
     const logger = util.determineLogger(broker);
     util.validateBroker(broker, logger);
     const injectors = util.determineActualInjectors(
-        defaultInjectors, customInjectors, logger
+        defaultInjectors, {customInjectors: customInjectors, logger: logger}
     );
 
     return function injectionDecoratorWrapper(...ifaces)
@@ -70,7 +70,7 @@ export default function inxs(broker, customInjectors)
 
         return function injectionDecorator(...args)
         {
-            /* istanbul ignore next */
+            /* sistanbul ignore next */
             let target = args[0];
 
             // we do not support constructor injection
@@ -86,9 +86,9 @@ export default function inxs(broker, customInjectors)
                 );
             }
 
-            /* istanbul ignore next */
+            /* sistanbul ignore next */
             const attr = args[1];
-            /* istanbul ignore next */
+            /* sistanbul ignore next */
             const descriptor = args[2];
             const injector = util.determineInjector(
                 target, attr, descriptor, logger, injectors

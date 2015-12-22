@@ -136,13 +136,14 @@ export function validateBroker(broker, logger)
  *
  * @protected
  * @param {Array<AbstractInjector>} defaultInjectors - the default injector suite
- * @param {Array<AbstractInjector>} customInjectors? - the custom injectors
- * @param {AbstractLogger} logger - the logger
- * @throws {InjectionError} in case that there are no valid custom injectors
+ * @param {Object} options? - the options
+ * @param {Array<AbstractInjector>} options.customInjectors? - the optional custom injectors
+ * @param {AbstractLogger} options.logger - the logger
+ * @throws {InjectionError} in case that there are no valid [custom] injectors
  * @returns {Array<AbstractInjector>} the injectors
  */
 export function determineActualInjectors(
-    defaultInjectors, customInjectors, logger
+    defaultInjectors, {customInjectors:customInjectors, logger:logger} = {}
 )
 {
     let result = [];
@@ -175,7 +176,7 @@ export function determineActualInjectors(
 
     if (result.length == 0)
     {
-        throw new InjectionError(messages.MSG_MISSING_INJECTORS);
+        throw new InjectionError(messages.MSG_NO_INJECTORS_AVAIL);
     }
 
     return result;

@@ -170,7 +170,7 @@ function ()
         assert.throws(
         function ()
         {
-            util.determineActualInjectors(impl.injectors, []);
+            util.determineActualInjectors(impl.injectors, {customInjectors:[]});
         }, InjectionError);
     });
 
@@ -188,8 +188,12 @@ function ()
         const expectedInjector = new impl.StaticPropertyInjectorImpl();
         const actualInjectors = util.determineActualInjectors(
             impl.injectors,
-            [undefined, null, {}, function () {}, expectedInjector],
-            fixtures.dummyLogger
+            {
+                customInjectors: [
+                    undefined, null, {}, function () {}, expectedInjector
+                ],
+                logger:fixtures.dummyLogger
+            }
         );
         assert.deepEqual(actualInjectors, [expectedInjector]);
         fixtures.dummyLogger.warn = origwarn;
@@ -226,7 +230,9 @@ function ()
         assert.doesNotThrow(
         function ()
         {
-            util.determineActualInjectors(null, impl.injectors);
+            util.determineActualInjectors(
+                null, {customInjectors:impl.injectors}
+            );
         });
     });
 });
