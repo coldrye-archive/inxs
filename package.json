@@ -48,6 +48,7 @@
     "esaver": ">=0.0.3",
     "esdoc-es7-plugin": ">=0.0.3",
     "esdoc-importpath-plugin": ">=0.0.1",
+    "esmake": "coldrye-es/esmake",
     "glob": ">=6.0.1"
   },
   "globalDevDependencies": {
