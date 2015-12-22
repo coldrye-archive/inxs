@@ -1,3 +1,11 @@
+0.1.1 (2015-12-23)
+==================
+
+  * version bump v0.1.1 ([0b49e99](https://github.com/coldrye-es/inxs/commit/0b49e99))
+  * switching to generalized esmake based build process ([6fe9bc1](https://github.com/coldrye-es/inxs/commit/6fe9bc1))
+  * fix(coverage): it should have read istanbul ([37e1cd2](https://github.com/coldrye-es/inxs/commit/37e1cd2))
+  * fix(util): #6 ([2a40353](https://github.com/coldrye-es/inxs/commit/2a40353))
+
 0.1.0 / 2015-12-18
 ==================
 
