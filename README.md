@@ -1,13 +1,9 @@
 # inxs
 
-![logo](https://raw.githubusercontent.com/coldrye-es/inxs-artwork/master/dist/logo-60x80.png)
+![logo](https://raw.githubusercontent.com/coldrye-es/inxs-artwork/master/dist/logo.png)
 
 Extensible, decorator based dependency injection framework using Babel. Suitable for
 both node and the browser.
-
-``IMPORTANT NOTE``
-
-Since version 0.1.0 this is no longer compatible with Babel 5.x. 
 
 
 ## Limitations
@@ -15,7 +11,7 @@ Since version 0.1.0 this is no longer compatible with Babel 5.x.
 See [inxs-common](https://github.com/coldrye-es/inxs-common#limitations).
 
 
-## IMPORTANT NOTE
+## Breaking Changes
 
 Since version v0.1.0 this is no longer compatible with Babel 5.x. 
 
@@ -23,8 +19,16 @@ ES decorators are about to change. Currently, we must use the legacy ES2015 deco
 Support for these decorators is provided by the interim package published by
 [loganfsmyth](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy).
 
-Please note that during build we have to make sure that ``babel-traverse`` is up to date, too.
+Please note that during build we have to make sure that **babel-traverse** is up to date, too.
 See https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy/issues/8 for more information.
+
+Another important change is that the distribution layout was changed since v0.1.0.
+Clients of this will now be able to simply import from **<package>** rather than 
+from **<package>/lib**.
+
+
+## Travis-CI
+See [inxs-common](https://github.com/coldrye-es/inxs-common#breaking-changes) for more information.
 
 
 ## Travis-CI
@@ -34,7 +38,7 @@ See https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy/issu
 
 ## Project Site
 
-The project site, see (3) under resources below, provides more insight into the project,
+The project site, see (2) under resources below, provides more insight into the project,
 including test coverage reports and API documentation.
 
 
@@ -61,33 +65,13 @@ See the [contributing guidelines](https://github.com/coldrye-es/inxs/blob/master
 
 ## Development Dependencies
 
-Development dependencies must be installed globally as we need the cli commands
-provided by those packages.
-
-Besides the dependencies listed in package.json#globalDevDependencies, you need
-have the following tools installed.
-
- - GNU Make
-
-
-## Why GNU Make and not Grunt or Gulp or ...?
-
-The current situation with the available task runners is so that Gulp is not my
-cup of tea and that Grunt lacks active development. Other task runners simply
-do not do the trick or are way too specialized for my purposes.
-
-Also, see (2) under resources below for my overall motivation. Opposed to the
-view expressed by the author, though, I even refrain from using **npm** for
-my build process as this also turned out to be an actual pain in the arse.
-
-Besides, have a look at the Makefile and decide for yourself whether using Grunt
-or Gulp would have made things easier or even more complex.
+See [esmake](https://github.com/coldrye-es/esmake#development-dependencies) for more information on development dependencies.
 
 
 ## Building
 
-In order to build this from source, you need a working Bash. See the Makefile
-for the available targets.
+See [esmake](https://github.com/coldrye-es/esmake#build-process) and the targets listed under
+[esmake](https://github.com/coldrye-es/esmake#makefilesoftwarein) for more information on how to build this.
 
 
 ## Installation
@@ -103,7 +87,5 @@ See the existing [examples](https://github.com/coldrye-es/inxs/tree/master/examp
 ## Resources
 
  - (1) [Github Site](https://github.com/coldrye-es/inxs)
- - (2) [Keith Cirkel on "Why we should stop using Grunt & Gulp"](http://blog.keithcirkel.co.uk/why-we-should-stop-using-grunt)
- - (3) [Project Site](http://inxs.es.coldrye.eu)
- - (4) [inxs-common](https://github.com/coldrye-es/inxs-common)
+ - (2) [Project Site](http://inxs.es.coldrye.eu)
 
