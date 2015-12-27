@@ -28,10 +28,6 @@ from **<package>/lib**.
 
 
 ## Travis-CI
-See [inxs-common](https://github.com/coldrye-es/inxs-common#breaking-changes) for more information.
-
-
-## Travis-CI
 
 [![Build Status](https://travis-ci.org/coldrye-es/inxs.svg?branch=master)](https://travis-ci.org/coldrye-es/inxs)
 
