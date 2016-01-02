@@ -16,7 +16,7 @@
  */
 
 
-import * as assert from 'esaver';
+import assert from 'esaver';
 
 import InjectionError from 'inxs-common/exceptions';
 
