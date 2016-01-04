@@ -23,8 +23,8 @@ Please note that during build we have to make sure that **babel-traverse** is up
 See https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy/issues/8 for more information.
 
 Another important change is that the distribution layout was changed since v0.1.0.
-Clients of this will now be able to simply import from **<package>** rather than 
-from **<package>/lib**.
+Clients of this will now be able to simply import from ``<package>`` rather than 
+from ``<package>/lib``.
 
 
 ## Travis-CI
