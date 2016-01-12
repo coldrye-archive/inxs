@@ -217,7 +217,6 @@ function ()
     it('must return copy of injector suite chosen',
     function ()
     {
-        assert.expect(1);
         let actualInjectors = util.determineActualInjectors(impl.injectors);
         actualInjectors.shift();
         assert.notDeepEqual(actualInjectors, impl.injectors);
@@ -226,7 +225,6 @@ function ()
     it('must not throw on available custom injectors',
     function ()
     {
-        assert.expect(1);
         assert.doesNotThrow(
         function ()
         {
@@ -244,7 +242,6 @@ function ()
     it('must throw when called with non string/function interface',
     function ()
     {
-        assert.expect(1);
         assert.throws(
         function ()
         {
@@ -258,7 +255,6 @@ function ()
     it('must succeed on valid string/function interface',
     function ()
     {
-        assert.expect(1);
         assert.doesNotThrow(
         function ()
         {
@@ -282,7 +278,6 @@ function ()
         fixtures.dummyLogger.error = function (message)
         {
             assert.equal(message, messages.MSG_NO_INJECTORS_AVAIL);
-            // assert data.*
         };
 
         assert.throws(
@@ -313,7 +308,6 @@ function ()
         fixtures.dummyLogger.error = function (message)
         {
             assert.equal(message, messages.MSG_UNSUPPORTED_INJECTION_METHOD);
-            // assert data.*
         };
 
         assert.throws(
