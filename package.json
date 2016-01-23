@@ -34,7 +34,7 @@
     "prepublish": "test \"${MASTER}\" = \"1\" || (echo ${npm_config_argv} | grep -E '(install|update)' >/dev/null 2>/dev/null || (echo 'use *make publish* instead' && exit 1))"
   },
   "dependencies": {
-    "inxs-common": ">=0.1.1",
+    "inxs-common": ">=0.1.2",
     "sprintf-js": ">=1.0.3"
   },
   "devDependencies": {
