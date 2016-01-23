@@ -1,3 +1,22 @@
+<a name="0.1.3"></a>
+## 0.1.3 (2016-01-23)
+
+
+* version bump v0.1.3 ([b10788b](https://github.com/coldrye-es/inxs/commit/b10788b))
+
+### chore
+
+* chore: updating commons, made babel-runtime a dev dependency ([6a3cfa5](https://github.com/coldrye-es/inxs/commit/6a3cfa5))
+* chore(tests): cleaning up, removing extraneous expect()s ([54c0ef9](https://github.com/coldrye-es/inxs/commit/54c0ef9))
+
+### fix
+
+* fix(dependencies): update inxs-common ([9062451](https://github.com/coldrye-es/inxs/commit/9062451))
+* fix(package.json): email ([f73bd8b](https://github.com/coldrye-es/inxs/commit/f73bd8b))
+* fix(README.md): import examples are not rendered correctly ([299a09d](https://github.com/coldrye-es/inxs/commit/299a09d))
+
+
+
 <a name="0.1.2"></a>
 ## 0.1.2 (2016-01-02)
 
