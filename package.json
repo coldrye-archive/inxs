@@ -52,7 +52,6 @@
     "glob": ">=6.0.1"
   },
   "globalDevDependencies": {
-    "babel": ">=6.3.x",
     "babel-cli": ">=6.3.x",
     "babel-core": ">=6.3.x",
     "babel-eslint": ">=4.1.1",
