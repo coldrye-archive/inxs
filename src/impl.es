@@ -1,6 +1,6 @@
 // vim: expandtab:ts=4:sw=4
 /*
- * Copyright 2015 Carsten Klein
+ * Copyright 2015-2016 Carsten Klein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,49 @@
  */
 
 
-import * as common from 'inxs-common';
+import
+{
+    decoratedClassFactory, decoratedMethodFactory
+}
+from 'pingo-common/factories';
+
+import * as injectors from 'inxs-common/injectors';
 import * as assertions from 'inxs-common/assertions';
 
-import * as messages from './messages';
-import * as util from './util';
+
+/**
+ * The class ConstructorInjectorImpl is responsible for handling constructor
+ * parameter injections.
+ *
+ * @private
+ */
+export class ConstructorInjectorImpl
+extends injectors.AbstractConstructorInjector
+{
+    /**
+     * @override
+     */
+    inject(injectionDescriptor, broker, logger)
+    {
+        const {target, ifaces} = {...injectionDescriptor};
+
+        logger.debug(
+            'preparing constructor injection wrapper',
+            {target, interfaces:ifaces}
+        );
+
+        const injector = function injectionWrapper(target, args)
+        {
+            const actualArgs = injectIntoArguments(
+                injectionDescriptor, args, broker, logger
+            );
+
+            target.apply(this, actualArgs);
+        };
+
+        return decoratedClassFactory(target, injector);
+    }
+}
 
 
 /**
@@ -28,17 +66,16 @@ import * as util from './util';
  * property injections.
  *
  * @private
- * @extends AbstractStaticPropertyInjector
  */
 export class StaticPropertyInjectorImpl
-extends common.AbstractStaticPropertyInjector
+extends injectors.AbstractStaticPropertyInjector
 {
     /**
      * @override
      */
-    inject(target, attr, descriptor, ifaces, options)
+    inject(injectionDescriptor, broker, logger)
     {
-        return propertyInjector(target, attr, descriptor, ifaces, options);
+        return propertyInjector(injectionDescriptor, broker, logger);
     }
 }
 
@@ -48,17 +85,16 @@ extends common.AbstractStaticPropertyInjector
  * property injections.
  *
  * @private
- * @extends AbstractInstancePropertyInjector
  */
 export class InstancePropertyInjectorImpl
-extends common.AbstractInstancePropertyInjector
+extends injectors.AbstractInstancePropertyInjector
 {
     /**
      * @override
      */
-    inject(target, attr, descriptor, ifaces, options)
+    inject(injectionDescriptor, broker, logger)
     {
-        return propertyInjector(target, attr, descriptor, ifaces, options);
+        return propertyInjector(injectionDescriptor, broker, logger);
     }
 }
 
@@ -68,17 +104,16 @@ extends common.AbstractInstancePropertyInjector
  * method parameter injections.
  *
  * @private
- * @extends AbstractStaticMethodInjector
  */
 export class StaticMethodInjectorImpl
-extends common.AbstractStaticMethodInjector
+extends injectors.AbstractStaticMethodInjector
 {
     /**
      * @override
      */
-    inject(target, attr, descriptor, ifaces, options)
+    inject(injectionDescriptor, broker, logger)
     {
-        return methodInjector(target, attr, descriptor, ifaces, options);
+        return methodInjector(injectionDescriptor, broker, logger);
     }
 }
 
@@ -88,51 +123,51 @@ extends common.AbstractStaticMethodInjector
  * method parameter injections.
  *
  * @private
- * @extends AbstractInstanceMethodInjector
  */
 export class InstanceMethodInjectorImpl
-extends common.AbstractInstanceMethodInjector
+extends injectors.AbstractInstanceMethodInjector
 {
     /**
      * @override
      */
-    inject(target, attr, descriptor, ifaces, options)
+    inject(injectionDescriptor, broker, logger)
     {
-        return methodInjector(target, attr, descriptor, ifaces, options);
+        return methodInjector(injectionDescriptor, broker, logger);
     }
 }
 
 
 /**
  * @private
- * @param {TargetType} target - the target object or function
- * @param {string} attr - the target's attribute
- * @param {PropertyDescriptorType} descriptor - the descriptor
- * @param {Array<InterfaceType>} ifaces - the interfaces to inject
- * @param {InjectorOptions} options - logger and broker
+ * @param {InjectionDescriptor} injectionDescriptor - the injection descriptor
+ * @param {BrokerType} broker - the broker
+ * @param {LoggerType} logger - the logger
  * @throws {InjectionError}
  * @returns {PropertyDescriptorType} - the property descriptor
  */
-export function propertyInjector(target, attr, descriptor, ifaces, options)
+export function propertyInjector(injectionDescriptor, broker, logger)
 {
-    assertions.assertSingleInterfaceOnly(target, attr, descriptor, ifaces);
+    assertions.assertSingleInterfaceOnly(injectionDescriptor);
 
-    const broker = options.broker;
-    const logger = options.logger;
+    const {target, attr, descriptor, ifaces} = {...injectionDescriptor};
+
     let iface = ifaces[0];
 
-    util.log(
-        messages.MSG_PREPARING_INJECTION_WRAPPER,
-        target, attr, iface, logger.debug
+    logger.debug(
+        'preparing property injection wrapper',
+        {target, attr, interface:iface}
     );
 
+    // FIXME:must remove setter
+    // FIXME:pingo-injectors must provide for a decorated method factory
     descriptor.get = function propertyInjectionWrapper()
     {
-        util.log(
-            messages.MSG_INJECTING_INSTANCE,
-            target, attr, iface, logger.debug
+        logger.debug(
+            'injecting interface',
+            {target, attr, interface:iface}
         );
 
+        // FIXME:must throw injection error in case of broker error or null instance
         return broker.getInstance(iface);
     };
 
@@ -142,48 +177,38 @@ export function propertyInjector(target, attr, descriptor, ifaces, options)
 
 /**
  * @private
- * @param {TargetType} target - the target object or function
- * @param {string} attr - the target's attribute
- * @param {MethodDescriptorType} descriptor - the descriptor
- * @param {Array<InterfaceType>} ifaces - the interfaces to inject
- * @param {InjectorOptions} options - logger and broker
+ * @param {InjectionDescriptor} injectionDescriptor - the injection descriptor
+ * @param {BrokerType} broker - the broker
+ * @param {LoggerType} logger - the logger
  * @throws {InjectionError}
- * @returns {MethodDescriptorType} the property descriptor
+ * @returns {MethodDescriptorType} - the method descriptor
  */
-export function methodInjector(target, attr, descriptor, ifaces, options)
+export function methodInjector(injectionDescriptor, broker, logger)
 {
-    assertions.assertFormalParametersMatch(
-        target, attr, descriptor, ifaces
+    assertions.assertFormalParametersMatch(injectionDescriptor);
+
+    const {target, attr, descriptor, ifaces} = {...injectionDescriptor};
+
+    logger.debug(
+        'preparing method injection wrapper',
+        {target, attr, interfaces:ifaces}
     );
 
-    const actualIfaces = [...ifaces];
-
-    const broker = options.broker;
-    const logger = options.logger;
     const method = descriptor.value;
 
-    util.log(
-        messages.MSG_PREPARING_INJECTION_WRAPPER,
-        target, attr, actualIfaces, logger.debug
-    );
-
-    descriptor.value = function methodInjectionWrapper()
+    // TODO:get rid of dangling references: target
+    const injector = function injectionWrapper(method, args)
     {
-        let args = [];
-        for (const iface of actualIfaces)
-        {
-            util.log(
-                messages.MSG_INJECTING_INSTANCE,
-                target, attr, iface, logger.debug
-            );
+// TODO:get rid of dangling references: injectionDescriptor
+        const actualArgs = injectIntoArguments(
+            injectionDescriptor, args, broker, logger
+        );
 
-            const instance = broker.getInstance(iface);
-            args.push(instance);
-        }
-        args = args.concat(Array.prototype.slice.call(arguments));
-
-        return method.apply(this, args);
+        /*eslint no-invalid-this:0*/
+        return method.apply(this, actualArgs);
     };
+
+    descriptor.value = decoratedMethodFactory(method, injector);
 
     return descriptor;
 }
@@ -191,8 +216,42 @@ export function methodInjector(target, attr, descriptor, ifaces, options)
 
 /**
  * @private
+ * @param {InjectionDescriptor} injectionDescriptor - the injection descriptor
+ * @param {Array} args - the original arguments array
+ * @param {BrokerType} broker - the broker
+ * @param {LoggerType} logger - the logger
+ * @throws {InjectionError}
+ * @returns {*} - the return value of the decorated method
  */
-export const injectors = [
+// TODO:get rid of dangling references: injectionDescriptor
+function injectIntoArguments({target, attr, ifaces}, args, broker, logger)
+{
+    let result = [];
+
+    // TODO:get rid of dangling references: target
+    for (let index=0, length=ifaces.length; index<length; index++)
+    {
+        const iface = ifaces[index];
+
+        logger.debug(
+            'injecting interface',
+            {target, attr, interface:iface}
+        );
+
+        // FIXME:must throw injection error in case of broker error or null instance
+        const instance = broker.getInstance(iface);
+        result.push(instance);
+    }
+
+    return result.concat(Array.prototype.slice.call(args));
+}
+
+
+/**
+ * @private
+ */
+export const defaultInjectors = [
+    new ConstructorInjectorImpl(),
     new InstancePropertyInjectorImpl(),
     new InstanceMethodInjectorImpl(),
     new StaticMethodInjectorImpl(),

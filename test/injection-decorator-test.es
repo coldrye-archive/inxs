@@ -1,6 +1,6 @@
 // vim: expandtab:ts=4:sw=4
 /*
- * Copyright 2015 Carsten Klein
+ * Copyright 2015-2016 Carsten Klein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
  */
 
 
-import assert from 'esaver';
-
 import InjectionError from 'inxs-common/exceptions';
 
 import inxs from '../src/inxs';
@@ -30,8 +28,8 @@ describe('inxs()', function ()
     it('must return injection decorator', function ()
     {
         const decorator = inxs(fixtures.simpleBroker);
-        assert.ok(typeof decorator == 'function');
-        assert.equal(decorator.name, 'injectionDecoratorWrapper');
+        decorator.should.be.a.function;
+        decorator.name.should.equal('injectionDecoratorWrapper');
     });
 });
 
@@ -44,24 +42,21 @@ describe('injection decorator', function ()
 
         it('must throw when called with zero interfaces', function ()
         {
-            assert.throws(
-                function ()
-                {
-                    injectionDecorator();
-                }, InjectionError
-            );
+            function tc()
+            {
+                injectionDecorator();
+            }
+            tc.should.throw(InjectionError, 'no interfaces specified');
         });
 
         it('must throw when called with null interface', function ()
         {
-            assert.throws(
-                function ()
-                {
-                    injectionDecorator(null);
-                }, InjectionError
-            );
+            function tc()
+            {
+                injectionDecorator(null);
+            }
+            tc.should.throw(InjectionError, 'invalid interface');
         });
-
     });
 });
 

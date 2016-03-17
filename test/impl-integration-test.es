@@ -16,10 +16,6 @@
  */
 
 
-import assert from 'esaver';
-
-import InjectionError from 'inxs-common/exceptions';
-
 import * as fixtures from './fixtures';
 
 import inxs from '../src/inxs';
@@ -42,14 +38,12 @@ function ()
                 static get injected () {}
             }
 
-            assert.equal(InjectionTarget.injected, 'injected');
+            InjectionTarget.injected.should.equal('injected');
         });
 
         it('into a static method',
         function ()
         {
-            assert.expect(2);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -57,11 +51,10 @@ function ()
                 @inject('iface')
                 static test(injected)
                 {
-                    assert.equal(injected, 'injected');
+                    injected.should.equal('injected');
                 }
             }
 
-            assert.equal(InjectionTarget.test.name, 'methodInjectionWrapper');
             InjectionTarget.test();
         });
 
@@ -77,14 +70,12 @@ function ()
             }
 
             const injectionTarget = new InjectionTarget();
-            assert.equal(injectionTarget.injected, 'injected');
+            injectionTarget.injected.should.equal('injected');
         });
 
         it('into an instance method',
         function ()
         {
-            assert.expect(2);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -92,32 +83,32 @@ function ()
                 @inject('iface')
                 test(injected)
                 {
-                    assert.equal(injected, 'injected');
+                    injected.should.equal('injected');
                 }
             }
 
             const injectionTarget = new InjectionTarget();
-            assert.equal(injectionTarget.test.name, 'methodInjectionWrapper');
             injectionTarget.test();
         });
-    });
 
-    it('must throw on attempted constructor injection',
-    function ()
-    {
-        assert.expect(1);
-
-        const inject = inxs(fixtures.simpleBrokerValidating);
-
-        assert.throws(
+        it('into constructor',
         function ()
         {
-            /*eslint no-unused-vars:0*/
+            const tracker = {called:false};
+            const inject = inxs(fixtures.simpleBrokerValidating);
+
             @inject('iface')
             class InjectionTarget
             {
+                constructor(injected)
+                {
+                    injected.should.equal('injected');
+                    tracker.called = true;
+                }
             }
-        }, InjectionError);
+            new InjectionTarget();
+            tracker.called.should.be.ok;
+        });
     });
 
     describe('must properly pass injected parameters and user parameters',
@@ -126,8 +117,6 @@ function ()
         it('into static methods',
         function ()
         {
-            assert.expect(2);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -135,8 +124,8 @@ function ()
                 @inject('iface')
                 static test(injected, param1)
                 {
-                    assert.equal(injected, 'injected');
-                    assert.equal(param1, 'param1');
+                    injected.should.equal('injected');
+                    param1.should.equal('param1');
                 }
             }
 
@@ -146,8 +135,6 @@ function ()
         it('into instance methods',
         function ()
         {
-            assert.expect(2);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -155,8 +142,8 @@ function ()
                 @inject('iface')
                 test(injected, param1)
                 {
-                    assert.equal(injected, 'injected');
-                    assert.equal(param1, 'param1');
+                    injected.should.equal('injected');
+                    param1.should.equal('param1');
                 }
             }
 
@@ -166,8 +153,6 @@ function ()
         it('while not losing additional non formal user parameters',
         function ()
         {
-            assert.expect(4);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -175,10 +160,10 @@ function ()
                 @inject('iface')
                 test(injected, param1)
                 {
-                    assert.equal(injected, 'injected');
-                    assert.equal(param1, 'param1');
-                    assert.equal(arguments.length, 3);
-                    assert.equal(arguments[2], 'param2');
+                    injected.should.equal('injected');
+                    param1.should.equal('param1');
+                    arguments.length.should.equal(3);
+                    arguments[2].should.equal('param2');
                 }
             }
 
@@ -188,8 +173,6 @@ function ()
         it('while not failing on missing formal user parameters',
         function ()
         {
-            assert.expect(2);
-
             const inject = inxs(fixtures.simpleBrokerValidating);
 
             class InjectionTarget
@@ -197,8 +180,8 @@ function ()
                 @inject('iface')
                 test(injected, param1)
                 {
-                    assert.equal(injected, 'injected');
-                    assert.ok(typeof param1 == 'undefined');
+                    injected.should.equal('injected');
+                    should.not.exist(param1);
                 }
             }
 

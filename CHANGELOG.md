@@ -1,3 +1,27 @@
+<a name="0.1.5"></a>
+## 0.1.5 (2016-03-17)
+
+
+* version bump v0.1.5 ([6874eac](https://github.com/coldrye-es/inxs/commit/6874eac))
+
+### refactor
+
+* refactor: major refactoring, constructor injection, pingo-common ([6d2b7a0](https://github.com/coldrye-es/inxs/commit/6d2b7a0))
+
+
+
+<a name="0.1.4"></a>
+## 0.1.4 (2016-02-08)
+
+
+* version bump v0.1.4 ([2c8b6cb](https://github.com/coldrye-es/inxs/commit/2c8b6cb))
+
+### chore
+
+* chore(dependencies): removing global babel dependency as it was deprecated ([0a03c5d](https://github.com/coldrye-es/inxs/commit/0a03c5d)) 
+
+
+
 <a name="0.1.3"></a>
 ## 0.1.3 (2016-01-23)
 

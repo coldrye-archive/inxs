@@ -1,6 +1,6 @@
 // vim: expandtab:ts=4:sw=4
 /*
- * Copyright 2015 Carsten Klein
+ * Copyright 2015-2016 Carsten Klein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,32 +16,14 @@
  */
 
 
-import InjectionError from 'inxs-common/exceptions';
-
-import {injectors as defaultInjectors} from './impl';
-import * as messages from './messages';
-import * as util from './util';
+import {defaultInjectors} from './impl';
+import * as utils from './utils';
 
 
 /**
+ * TODO:revise documentation
  * The module inxs provides a decorator used for injecting instances into either
  * both static or instance level methods and properties.
- *
- * The module must be called with a broker object that is expected to have the
- * following methods
- *
- * - getInstance(iface : {String|Function}) : {Object},
- *
- * Optionally, the broker might implement the following methods and properties
- *
- * - validateInterfaces(...ifaces : {String|Function}) : {Boolean}, and
- * - get logger() : {Object<AbstractLogger>}.
- *
- * The broker is responsible for both resolving the interfaces passed to it and
- * providing suitable instances for these interfaces.
- *
- * You may further customize the injection decorator by providing an alternate
- * suite of injectors.
  *
  * Usage:
  *
@@ -51,124 +33,36 @@ import * as util from './util';
  * export const inject = inxs(new MyBroker());
  * ```
  *
- * @param {Object<AbstractBroker>} broker - the broker
+ * @param {Object<BrokerType>} broker - the broker
  * @param {Array<AbstractInjector>} [customInjectors] - custom suite of injectors
  * to be used instead of the default suite
  * @returns {InjectionDecoratorType} - the injection decorator
  */
 export default function inxs(broker, customInjectors)
 {
-    const logger = util.determineLogger(broker);
-    util.validateBroker(broker, logger);
-    const injectors = util.determineActualInjectors(
-        defaultInjectors, {customInjectors: customInjectors, logger: logger}
+    const logger = utils.determineLogger(broker);
+    utils.validateBroker(broker, logger);
+    const injectors = utils.determineActualInjectors(
+        defaultInjectors, logger, customInjectors
     );
 
     return function injectionDecoratorWrapper(...ifaces)
     {
-        util.validateInterfaces(broker, logger, ifaces);
+        // TODO:validating here might be too early as ifaces might not have been registered yet
+        // TODO:should be postponed to until actual injection
+        // THINK:obsolete?
+        utils.validateInterfaces(broker, logger, ifaces);
 
-        return function injectionDecorator(...args)
+        return function injectionDecorator(target, attr, descriptor)
         {
-            /* istanbul ignore next */
-            let target = args[0];
-
-            // we do not support constructor injection
-            if (args.length == 1)
-            {
-                util.log(
-                    messages.MSG_USE_PROPERTY_INJECTION_INSTEAD,
-                    target, null, ifaces, logger.error
-                );
-
-                throw new InjectionError(
-                    messages.MSG_USE_PROPERTY_INJECTION_INSTEAD
-                );
-            }
-
-            /* istanbul ignore next */
-            const attr = args[1];
-            /* istanbul ignore next */
-            const descriptor = args[2];
-            const injector = util.determineInjector(
+            const injector = utils.determineInjector(
                 target, attr, descriptor, logger, injectors
             );
 
             return injector.inject(
-                target, attr, descriptor, ifaces, {broker:broker, logger:logger}
+                {target, attr, descriptor, ifaces}, broker, logger
             );
         }
     }
 }
-
-
-/**
- * @typedef {Object} AbstractBroker
- * @property {function(iface: InterfaceType): Object} getInstance
- * @property {AbstractLogger} [logger]
- * @property {function(ifaces: Array<InterfaceType>): boolean} [validateInterfaces]
- */
-
-
-/**
- * @typedef {function(iface: InterfaceType): InjectionDecoratorImplType} InjectionDecoratorType
- */
-
-
-/**
- * @typedef {Object} AbstractLogger
- * @property {function(message: string, data: *): void} info
- * @property {function(message: string, data: *): void} warn
- * @property {function(message: string, data: *): void} debug
- * @property {function(message: string, data: *): void} error
- */
-
-
-/**
- * @protected
- * @typedef {Object} InjectorOptions
- * @property {AbstractBroker} broker
- * @property {AbstractLogger} logger
- */
-
-
-/**
- * @protected
- * @typedef {function(target: TargetType, attr: string, descriptor: DescriptorType): DescriptorType} InjectionDecoratorImplType
- */
-
-
-/**
- * @protected
- * @external {AbstractInjector} /projects/inxs-common/doc/dev/class/src/inxs-common.es~AbstractInjector.html
- */
-
-
-/**
- * @protected
- * @external {DescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-DescriptorType.html
- */
-
-
-/**
- * @protected
- * @external {MethodDescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-MethodDescriptorType
- */
-
-
-/**
- * @protected
- * @external {PropertyDescriptorType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-PropertyDescriptorType
- */
-
-
-/**
- * @external {InterfaceType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-InterfaceType.html
- */
-
-
-/**
- * @protected
- * @external {TargetType} /projects/inxs-common/doc/dev/typedef/index.html#static-typedef-TargetType.html
- */
 

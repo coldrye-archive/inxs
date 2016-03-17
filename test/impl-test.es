@@ -1,6 +1,6 @@
 // vim: expandtab:ts=4:sw=4
 /*
- * Copyright 2015 Carsten Klein
+ * Copyright 2015-2016 Carsten Klein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,124 +16,109 @@
  */
 
 
-import assert from 'esaver';
-
 import InjectionError from 'inxs-common/exceptions';
 
 import * as impl from '../src/impl';
-import * as messages from '../src/messages';
 
 import * as fixtures from './fixtures';
 
 
-describe('impl.methodInjector',
+describe('methodInjector()',
 function ()
 {
-    it('make sure that assertFormalParametersMatch is in place',
+    it('must assert that formal parameters match',
     function ()
     {
-        assert.expect(1);
-        assert.throws(
-        function ()
+        function tc()
         {
             impl.methodInjector(
-                fixtures.injectionTarget, fixtures.attr,
-                fixtures.methodDescriptorWithParams,
-                ['iface1', 'iface2', 'iface3'],
-                {
-                    broker : fixtures.simpleBroker,
-                    logger : fixtures.dummyLogger
-                }
+            {
+                target:fixtures.injectionTarget, attr:fixtures.attr,
+                descriptor:fixtures.methodDescriptorWithParams,
+                ifaces:['iface1', 'iface2', 'iface3']
+            }, fixtures.simpleBroker, fixtures.dummyLogger
             );
-        }, InjectionError);
+        }
+        tc.should.throw(
+            InjectionError, 'unable to inject more interfaces than'
+        );
     });
 
-    it('must return the required injection wrapper',
+    it('must return the expected injection wrapper',
     function ()
     {
-        assert.expect(3);
         const origdebug = fixtures.dummyLogger.debug;
         fixtures.dummyLogger.debug = function (msg) {
-            assert.equal(msg, messages.MSG_PREPARING_INJECTION_WRAPPER);
+            msg.should.contain('preparing method injection wrapper');
         }
         const descriptor = impl.methodInjector(
-            fixtures.injectionTarget, fixtures.attr,
-            fixtures.methodDescriptorWithParams,
-            ['iface1', 'iface2'],
-            {
-                broker : fixtures.simpleBroker,
-                logger : fixtures.dummyLogger
-            }
+        {
+            target:fixtures.injectionTarget, attr:fixtures.attr,
+            descriptor:fixtures.methodDescriptorWithParams,
+            ifaces:['iface1', 'iface2']
+        }, fixtures.simpleBroker, fixtures.dummyLogger
         );
-        assert.ok(typeof descriptor.value == 'function');
-        assert.equal(descriptor.value.name, 'methodInjectionWrapper');
+        descriptor.value.should.be.a.function;
+        descriptor.value.name.should.equal('method');
         fixtures.dummyLogger.debug = origdebug;
     });
 });
 
 
-describe('impl.propertyInjector',
+describe('propertyInjector()',
 function ()
 {
-    it('make sure that assertSingleInterfaceOnly is in place',
+    it('must assert single interface only',
     function ()
     {
-        assert.expect(1);
-        assert.throws(
-        function ()
+        function tc()
         {
             impl.propertyInjector(
-                fixtures.injectionTarget, fixtures.attr,
-                fixtures.propertyDescriptor,
-                ['iface1', 'iface2'],
-                {
-                    broker : fixtures.simpleBroker,
-                    logger : fixtures.dummyLogger
-                }
+            {
+                target:fixtures.injectionTarget, attr:fixtures.attr,
+                descriptor:fixtures.propertyDataDescriptor,
+                ifaces:['iface1', 'iface2']
+            }, fixtures.simpleBroker, fixtures.dummyLogger
             );
-        }, InjectionError);
+        }
+        tc.should.throw(InjectionError, 'single interface expected');
     });
 
     it('must return the required injection wrapper',
     function ()
     {
-        assert.expect(3);
         const origdebug = fixtures.dummyLogger.debug;
         fixtures.dummyLogger.debug = function (msg) {
-            assert.equal(msg, messages.MSG_PREPARING_INJECTION_WRAPPER);
+            msg.should.contain('preparing property injection wrapper');
         }
         const descriptor = impl.propertyInjector(
-            fixtures.injectionTarget, fixtures.attr,
-            fixtures.propertyDescriptor,
-            ['iface1'],
-            {
-                broker : fixtures.simpleBroker,
-                logger : fixtures.dummyLogger
-            }
+        {
+            target:fixtures.injectionTarget, attr:fixtures.attr,
+            descriptor:fixtures.propertyDataDescriptor,
+            ifaces:['iface1']
+        }, fixtures.simpleBroker, fixtures.dummyLogger
         );
-        assert.ok(typeof descriptor.get == 'function');
-        assert.equal(descriptor.get.name, 'propertyInjectionWrapper');
+        descriptor.get.should.be.a.function;
+        descriptor.get.name.should.equal('propertyInjectionWrapper');
         fixtures.dummyLogger.debug = origdebug;
     });
 });
 
 
-describe('impl.injectors',
+describe('defaultInjectors',
 function ()
 {
     it('must consist of expected injectors in exact order',
     function ()
     {
-        assert.expect(1);
-        assert.deepEqual(
-            impl.injectors,
-            [
-                new impl.InstancePropertyInjectorImpl(),
-                new impl.InstanceMethodInjectorImpl(),
-                new impl.StaticMethodInjectorImpl(),
-                new impl.StaticPropertyInjectorImpl()
-            ]
-        );
+        impl.defaultInjectors.should.deep.equal(
+        [
+            new impl.ConstructorInjectorImpl(),
+            new impl.InstancePropertyInjectorImpl(),
+            new impl.InstanceMethodInjectorImpl(),
+            new impl.StaticMethodInjectorImpl(),
+            new impl.StaticPropertyInjectorImpl()
+        ]);
     });
 });
 

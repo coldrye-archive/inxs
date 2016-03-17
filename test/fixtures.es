@@ -1,6 +1,6 @@
 // vim: expandtab:ts=4:sw=4
 /*
- * Copyright 2015 Carsten Klein
+ * Copyright 2015-2016 Carsten Klein
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@ class SimpleBrokerValidating extends SimpleBrokerLogging
         for (const iface of ifaces)
         {
             const ifaceType = typeof iface;
-            if (['function', 'string'].indexOf(ifaceType) == -1)
+            if (['function', 'string', 'symbol'].indexOf(ifaceType) == -1)
             {
                 throw TypeError('interface not available');
             }
@@ -99,18 +99,39 @@ export class InjectionTarget
 export const injectionTarget = new InjectionTarget();
 
 
-export const propertyDescriptor = {};
+export const propertyDataDescriptor =
+{
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    value: 1
+};
+
+
+export const accessorPropertyDescriptor =
+{
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    get: function get() {}
+};
 
 
 export const methodDescriptor =
 {
-    value : function () {}
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    value : function method() {}
 };
 
 
 export const methodDescriptorWithParams =
 {
-    value : function (arg1, arg2) {}
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    value : function method(arg1, arg2) {}
 };
 
 
