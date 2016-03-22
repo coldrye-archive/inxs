@@ -1,6 +1,6 @@
 {
   "name": "inxs",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Decorator based dependency injection for Babel 6.x (node, browser)",
   "keywords": [
     "decorator",
