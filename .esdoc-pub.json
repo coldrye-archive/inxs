@@ -25,6 +25,9 @@
                     {"from": "\\.es$", "to": ""}
                 ]
             }
+        },
+        {
+            "name": "esdoc-es7-plugin"
         }
     ]
 }
