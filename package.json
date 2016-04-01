@@ -59,6 +59,7 @@
     "babel-eslint": ">=4.1.1",
     "babel-istanbul": ">=0.3.20",
     "babel-traverse": ">=6.3.19",
+    "conventional-changelog-cli": ">=1.1.1",
     "esdoc": ">=0.3.1",
     "eslint": "<2.3.0",
     "eslint-config-coldrye": ">=0.0.9",
